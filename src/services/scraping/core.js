@@ -29,7 +29,7 @@ const scrapePage = async (url, storeName) => {
     const html = await fetchHtml(url);
     const selector = cheerio.load(html);
     const productInformation = extractInformation(selector("body"), queryMap.get(storeName));
-    return productInformation;
+    return { ...productInformation, url };
 
   } catch (e) {
     console.error(`ERROR: An error occurred while trying to fetch the URL: ${url}`);
