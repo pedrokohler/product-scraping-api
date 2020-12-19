@@ -1,15 +1,15 @@
 const regularQuery = (query) => (selector) => selector
   .find(query)
   .text()
-  .replace(/[\n\t]{1,}/g, '\n')
-  .replace(/[\s]{1,}/g, ' ')
+  .replace(/[\n\t]{1,}/g, "\n")
+  .replace(/[\s]{1,}/g, " ")
   .trim();
 
 const regularPriceQuery = (query) => (selector) => parseFloat(
   regularQuery(query)(selector)
-  .replace("R$", "")
-  .replace('.', "")
-  .replace(",", ".")
+    .replace("R$", "")
+    .replace(".", "")
+    .replace(",", "."),
 );
 
 const regularImageQuery = (query) => (selector) => selector
@@ -31,14 +31,14 @@ const queryMap = new Map([
     titleQuery: regularQuery("h1[data-productname]"),
     imageQuery: regularImageQuery(".photo-figure img"),
     priceQuery: regularPriceQuery("#buy-box div.price-box div.default-price span strong"),
-    descriptionQuery: regularQuery("p.description")
+    descriptionQuery: regularQuery("p.description"),
   }],
   ["amazon", {
     titleQuery: regularQuery("#productTitle"),
     imageQuery: amazonImageQuery,
     priceQuery: regularPriceQuery("#priceblock_ourprice"),
-    descriptionQuery: regularQuery("#feature-bullets ul")
-  }]
+    descriptionQuery: regularQuery("#feature-bullets ul"),
+  }],
 ]);
 
 module.exports = queryMap;

@@ -1,10 +1,11 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
 const queryMap = require("./queries");
+const Product = require("../../models/product");
 
-const fetchHtml = async url => {
-    const { data } = await axios.get(url);
-    return data;
+const fetchHtml = async (url) => {
+  const { data } = await axios.get(url);
+  return data;
 };
 
 const extractInformation = (selector, queries) => {
@@ -24,19 +25,17 @@ const extractInformation = (selector, queries) => {
 };
 
 const scrapePage = async (url, storeName) => {
-
-  try{
+  try {
     const html = await fetchHtml(url);
     const selector = cheerio.load(html);
     const productInformation = extractInformation(selector("body"), queryMap.get(storeName));
-    return { ...productInformation, url };
-
+    const product = new Product({ _id: url, ...productInformation, url });
+    return product;
   } catch (e) {
     console.error(`ERROR: An error occurred while trying to fetch the URL: ${url}`);
     console.error(e.message);
     return { error: e.message };
   }
-
 };
 
 module.exports = scrapePage;
