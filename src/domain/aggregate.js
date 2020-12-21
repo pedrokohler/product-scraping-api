@@ -31,7 +31,7 @@ const getRefreshedProduct = async (url) => {
   return product;
 };
 
-const getProductData = (cache) => async (url) => {
+const getProductData = async (cache, url) => {
   if (shouldRefreshData(url, cache)) {
     const product = await getRefreshedProduct(url);
     pesistProductAsynchronously({ url, product, cache });

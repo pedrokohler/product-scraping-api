@@ -5,7 +5,7 @@ const lastTimeRequestedCache = new Map();
 const handleProductRequest = async (req, res) => {
   try {
     const url = decodeURIComponent(req.params.url);
-    const product = await getProductData(lastTimeRequestedCache)(url);
+    const product = await getProductData(lastTimeRequestedCache, url);
     return res.json(product);
   } catch (e) {
     console.error(e.message);
