@@ -23,15 +23,20 @@ const extractInformation = (selector, queries) => {
   };
 };
 
-const scrapePage = (queryMap) => async (url, storeName) => {
+const getSelector = async (url) => {
+  const html = await fetchHtml(url);
+  const selector = cheerio.load(html);
+  return selector("body");
+};
+
+const scrapePage = async (url, queries) => {
   try {
-    const html = await fetchHtml(url);
-    const selector = cheerio.load(html);
-    const productInformation = extractInformation(selector("body"), queryMap.get(storeName));
-    const product = new Product({ _id: url, ...productInformation, url });
+    const selector = await getSelector(url);
+    const productInformation = extractInformation(selector, queries);
+    const product = new Product({ ...productInformation, url });
     return product;
   } catch (e) {
-    console.error(`ERROR: An error occurred while trying to fetch the URL: ${url}`);
+    console.error(`ERROR: An error occurred while trying to scrape the URL: ${url}`);
     console.error(e.message);
     return { error: e.message };
   }

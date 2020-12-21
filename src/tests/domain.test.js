@@ -1,4 +1,7 @@
-const { shouldRefreshData, DATA_EXPIRATION_TIME_LIMIT } = require("../domain/aggregate");
+const {
+  shouldRefreshData,
+  DATA_EXPIRATION_TIME_LIMIT,
+} = require("../domain/aggregate");
 const Product = require("../domain/models/product");
 
 describe("DOMAIN MODEL TEST", () => {

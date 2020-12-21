@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema({
-  _id: String,
   title: String,
   image: String,
   price: Number,
@@ -26,6 +25,8 @@ const productSchema = new Schema({
 /* eslint-enable no-param-reassign */
 /* eslint-enable no-underscore-dangle */
 });
+
+productSchema.index({ url: 1 });
 
 const Product = model("Product", productSchema);
 

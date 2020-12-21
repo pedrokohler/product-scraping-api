@@ -1,4 +1,4 @@
-const { scrapePage } = require("../services/scraping/core");
+const { scrapePage } = require("../services/scraping");
 const { queryMap } = require("../services/scraping/queries");
 const { getStoreFromUrl } = require("../helpers/url");
 const Product = require("./models/product");
@@ -14,11 +14,11 @@ const shouldRefreshData = (url, cache) => (
     : true
 );
 
-const persistProduct = async ({
+const pesistProductAsynchronously = async ({
   url, product, cache,
 }) => {
   try {
-    await Product.findOneAndUpdate({ _id: url }, product, { upsert: true });
+    await Product.findOneAndUpdate({ url }, product, { upsert: true });
     cache.set(url, Date.now());
   } catch (e) {
     console.error(`Failed to persist product ${url}:\n\n\t${e.message}`);
@@ -27,18 +27,18 @@ const persistProduct = async ({
 
 const getRefreshedProduct = async (url) => {
   const storeName = getStoreFromUrl(url);
-  const product = await scrapePage(queryMap)(url, storeName);
+  const product = await scrapePage(url, queryMap.get(storeName));
   return product;
 };
 
 const getProductData = (cache) => async (url) => {
   if (shouldRefreshData(url, cache)) {
     const product = await getRefreshedProduct(url);
-    persistProduct({ url, product, cache });
+    pesistProductAsynchronously({ url, product, cache });
     return product;
   }
 
-  const product = await Product.findById(url);
+  const product = await Product.findOne({ url });
   return product;
 };
 
