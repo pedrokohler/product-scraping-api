@@ -43,7 +43,6 @@ const getProductData = (cache) => async (url) => {
 };
 
 module.exports = {
-  persistProduct,
   shouldRefreshData,
   getProductData,
   DATA_EXPIRATION_TIME_LIMIT,

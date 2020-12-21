@@ -1,2 +1,2 @@
 require("./services/db/connection");
-require("./server/server");
+require("./server/index");

@@ -1,12 +1,9 @@
 const express = require("express");
+const { handleProductRequest } = require("./request/handlers");
 
-const getRouter = (handleProductRequest) => {
-  const router = express.Router();
+const router = express.Router();
 
-  router.use(express.json());
-  router.get("/product/:url", handleProductRequest);
+router.use(express.json());
+router.get("/product/:url", handleProductRequest);
 
-  return router;
-};
-
-module.exports = getRouter;
+module.exports = router;

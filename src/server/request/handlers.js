@@ -1,4 +1,4 @@
-const { getProductData } = require("../domain/aggregate");
+const { getProductData } = require("../../domain/aggregate");
 
 const lastTimeRequestedCache = new Map();
 
