@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
-const Product = require("../../models/product");
+const Product = require("../../domain/models/product");
 
 const fetchHtml = async (url) => {
   const { data } = await axios.get(url);
@@ -37,4 +37,7 @@ const scrapePage = (queryMap) => async (url, storeName) => {
   }
 };
 
-module.exports = scrapePage;
+module.exports = {
+  extractInformation,
+  scrapePage,
+};

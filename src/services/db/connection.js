@@ -1,13 +1,10 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
+const options = require("./options");
 
 const connString = process.env.MONGO_CONNECTION_STRING;
 
-mongoose.connect(connString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+mongoose.connect(connString, options);
 
 const db = mongoose.connection;
 

@@ -1,8 +1,8 @@
 const regularQuery = (query) => (selector) => selector
   .find(query)
   .text()
-  .replace(/[\n\t]{1,}/g, "\n")
-  .replace(/[\s]{1,}/g, " ")
+  .replace(/[\n]{1,}/g, "\n")
+  .replace(/[\s\t]{1,}/g, " ")
   .trim();
 
 const regularPriceQuery = (query) => (selector) => parseFloat(
@@ -41,4 +41,10 @@ const queryMap = new Map([
   }],
 ]);
 
-module.exports = queryMap;
+module.exports = {
+  regularQuery,
+  regularPriceQuery,
+  regularImageQuery,
+  amazonImageQuery,
+  queryMap,
+};

@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
 const { Schema, model } = require("mongoose");
 
 const productSchema = new Schema({
@@ -10,6 +8,8 @@ const productSchema = new Schema({
   description: String,
   url: String,
 },
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 {
   toObject: {
     transform(doc, ret) {
@@ -23,6 +23,8 @@ const productSchema = new Schema({
       delete ret.__v;
     },
   },
+/* eslint-enable no-param-reassign */
+/* eslint-enable no-underscore-dangle */
 });
 
 const Product = model("Product", productSchema);
