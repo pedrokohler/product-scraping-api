@@ -1,4 +1,5 @@
 const scrapePage = require("../services/scraping/core");
+const queryMap = require("../services/scraping/queries");
 const { getStoreFromUrl } = require("../helpers/url");
 const Product = require("../models/product");
 
@@ -30,7 +31,7 @@ const persistProduct = async (url, product, tries = 0) => {
 
 const getRefreshedProduct = async (url) => {
   const storeName = getStoreFromUrl(url);
-  const product = await scrapePage(url, storeName);
+  const product = await scrapePage(queryMap)(url, storeName);
   return product;
 };
 

@@ -1,6 +1,5 @@
 const cheerio = require("cheerio");
 const axios = require("axios").default;
-const queryMap = require("./queries");
 const Product = require("../../models/product");
 
 const fetchHtml = async (url) => {
@@ -24,7 +23,7 @@ const extractInformation = (selector, queries) => {
   };
 };
 
-const scrapePage = async (url, storeName) => {
+const scrapePage = (queryMap) => async (url, storeName) => {
   try {
     const html = await fetchHtml(url);
     const selector = cheerio.load(html);
