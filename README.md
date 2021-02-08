@@ -1,41 +1,41 @@
-# Scraping de dados de produtos
+# Product data scraping
 
-App criado a partir das instruções contidas [aqui](https://gist.github.com/lricoy/c50dbd2ae8bc110db82f34d00727cb2b).
+Created based on the instructions contained [here](https://gist.github.com/lricoy/c50dbd2ae8bc110db82f34d00727cb2b).
 
-As lojas selecionadas foram Amazon, Zattini e Magazine Luiza. Foram escolhidos MongoDB para persistência de dados, axios e cheerio para scraping de dados, jest para testes e express para o servidor.
+You can use the API to get information about Amazon, Zattini and Magazine Luiza products.
 
-## Instalação
 
-Clone o repositório e instale as dependências
+## Installation
+
+Clone the repository and install the dependencies
 ```
 git clone https://github.com/pedrokohler/product-scraping-api.git
 yarn install
 ```
 
-Antes de iniciar o aplicativo você deve criar um arquivo .env na pasta raiz da aplicação com a seguinte chave
+Before initializing the app, you should create a .env file in the root of the application with the following key
 ```
 MONGO_CONNECTION_STRING=
 ```
 
-Que é a string de conexão de um banco de dados MongoDB com permissão de escrita e leitura. Os dados serão salvos no banco referente à string.
+Which is the connection string of a Mongo database with read and write permissions. The product data will be saved in this database.
 
-## Uso
+## Usage
 
-Para enviar uma URL é necessário fazer o encoding da URL antes (URL encoded), uma vez que será enviada pela própria URL.
+To send a product URL to the API it's necessary to encode it first since the product URL must sent to the API withing the URL, like the following example:
 
-Exemplo de código para encoding da URL:
 ```
 const url = "https://www.zattini.com.br/slip-on-santa-lolla-caixa-alta-feminino-bege-H08-2438-004";
 const encodedUrl = encodeURIComponent(url);
-// resulta em: https%3A%2F%2Fwww.zattini.com.br%2Fslip-on-santa-lolla-caixa-alta-feminino-bege-H08-2438-004
+// results in: https%3A%2F%2Fwww.zattini.com.br%2Fslip-on-santa-lolla-caixa-alta-feminino-bege-H08-2438-004
 ```
 
-Exemplo de chamada para a API:
+API call example:
 ```
 curl --location --request GET 'http://localhost:3000/product/https%3A%2F%2Fwww.zattini.com.br%2Fslip-on-santa-lolla-caixa-alta-feminino-bege-H08-2438-004'
 ```
 
-Resposta da chamada acima:
+Which resulted in the following JSON (at december 2020):
 
 ```
 {
@@ -47,10 +47,10 @@ Resposta da chamada acima:
 }
 ```
 
-### Servidor de desenvolvimento
+### Development Server
 
 ```bash
   node src/index.js
 ```
 
-Você poderá utilizar o servidor de desenvolvimento a partir de `localhost:3000`.
+You can use the development server through `localhost:3000`.
